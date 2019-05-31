@@ -19,4 +19,4 @@ CREATE TABLE userStatus (
     PRIMARY KEY(username, resource)
 );
 
-INSERT INTO ofVersion (name, version) VALUES ('user-status', 0);
+INSERT INTO ofVersion (name, version) VALUES ('user-status', 1);

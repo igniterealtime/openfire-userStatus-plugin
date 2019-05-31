@@ -19,4 +19,4 @@ CREATE TABLE userStatusHistory (
     PRIMARY KEY pk_userStatusHistory (historyID)
 );
 
-INSERT INTO ofVersion (name, version) VALUES ('user-status', 0);
+INSERT INTO ofVersion (name, version) VALUES ('user-status', 1);
