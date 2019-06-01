@@ -9,7 +9,7 @@
     <groupId>org.igniterealtime.openfire.plugins</groupId>
     <artifactId>userstatus</artifactId>
     <version>1.2.2-SNAPSHOT</version>
-    <name>User Status Plugin</name>
+    <name>UserStatus Plugin</name>
     <description>Openfire plugin to save the user status to the database</description>
 
     <developers>
