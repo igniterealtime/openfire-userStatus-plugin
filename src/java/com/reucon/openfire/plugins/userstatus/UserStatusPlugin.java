@@ -10,6 +10,7 @@ import org.jivesoftware.openfire.session.ClientSession;
 import org.jivesoftware.openfire.session.Session;
 import org.jivesoftware.openfire.user.PresenceEventDispatcher;
 import org.jivesoftware.openfire.user.PresenceEventListener;
+import org.jivesoftware.openfire.user.UserNotFoundException;
 import org.jivesoftware.util.*;
 import org.xmpp.packet.Presence;
 import org.xmpp.packet.JID;
@@ -68,9 +69,26 @@ public class UserStatusPlugin implements Plugin, PropertyEventListener, SessionE
         SessionEventDispatcher.removeListener(this);
     }
 
+    public static boolean isRegisteredLocalUser(JID user) {
+        if (XMPPServer.getInstance().isLocal(user)) {
+            try {
+                XMPPServer.getInstance().getUserManager().getUser(user.getNode());
+                return true;
+            }
+            catch (final UserNotFoundException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public void sessionCreated(Session session)
     {
-        if (!XMPPServer.getInstance().getUserManager().isRegisteredUser(session.getAddress()))
+        if (!isRegisteredLocalUser(session.getAddress())) {
+            return;
+        }
+
+        if (!isRegisteredLocalUser(session.getAddress()))
         {
             return;
         }
@@ -80,7 +98,7 @@ public class UserStatusPlugin implements Plugin, PropertyEventListener, SessionE
 
     public void sessionDestroyed(Session session)
     {
-        if (!XMPPServer.getInstance().getUserManager().isRegisteredUser(session.getAddress()))
+        if (!isRegisteredLocalUser(session.getAddress()))
         {
             return;
         }
@@ -178,7 +196,7 @@ public class UserStatusPlugin implements Plugin, PropertyEventListener, SessionE
         PreparedStatement pstmt = null;
         final String presenceText;
 
-        if (!XMPPServer.getInstance().getUserManager().isRegisteredUser(session.getAddress()))
+        if (!isRegisteredLocalUser(session.getAddress()))
         {
             return;
         }
