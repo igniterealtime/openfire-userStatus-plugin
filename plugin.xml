@@ -11,7 +11,6 @@
     <version>${project.version}</version>
     <date>2023-05-02</date>
     <minServerVersion>4.0.0</minServerVersion>
-    <priorToServerVersion>4.8.0</priorToServerVersion>
     <minJavaVersion>1.8</minJavaVersion>
     <databaseKey>user-status</databaseKey>
     <databaseVersion>1</databaseVersion>
